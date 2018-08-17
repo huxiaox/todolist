@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="todoApp">
+    <h1>备忘录</h1>
+    <input class="new-todo" type="text" v-model="inputValue" @keyup.enter="addTodo" autofocus="autofocus"/>
+    <ul class="todo-list">
+        <li v-for="(item, index) in items" :key="index"
+            :class="{editing: item === editedTodo}">
+            <div class="view">
+                <input class="toggle" type="checkbox"
+                       v-model="item.completed">
+                <label :class="{complete: item.completed }"
+                       @dblclick="editTodo(item)"
+                >{{item.text}}</label>
+                <button @click="removeTodo(item)" class="destroy">X</button>
+            </div>
+            <input type="text" class="edit" v-model="item.text"
+                   v-focus="item === editedTodo"
+                   @keyup.enter="doneEdit(item)"
+                   @keyup.esc="cancelEdit(item)"
+                   @blur="cancelEdit(item)">
+        </li>
+    </ul>
+</div>
+<!-- vue框架 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="store.js"></script>
+<script src="vuetest.js"></script>
+</body>
+</html>
